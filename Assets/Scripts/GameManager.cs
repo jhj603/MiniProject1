@@ -8,6 +8,8 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
 
+    public static int level = 3;
+
     public Card firstCard;
     public Card secondCard;
 
@@ -21,18 +23,28 @@ public class GameManager : MonoBehaviour
     public GameObject WarningTimeTxt;
 
     public Text timeTxt;
-    public GameObject endTxt;
+
+    public GameObject failEndTxt;
+    public GameObject clearEndTxt;
+    public Text resultTxt;
+    public Text matchTryTxt;
+    public Text scoreTxt;
 
     AudioSource audioSource;
+
     public AudioClip matchClip;
     public AudioClip failClip;
     public AudioClip finishClip;
 
     public int cardCount = 0;
-    float timeStack = 0f;
 
-    //«¡∑Œ∆€∆º ¿˚øÎ«ÿæﬂ «‘
     public int clickCount = 0;
+
+    public Animator anim;
+
+    int matchTryCount = 0;
+    float time = 30.0f;
+    float score = 100.0f;
 
     float firstTime = 0f;
     bool isFirst = false;
@@ -62,22 +74,37 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Time.timeScale = 1.0f;
         audioSource = GetComponent<AudioSource>();
 
         Time.timeScale = 1f;
 
         clickCount = 0;
-        timeStack = 0f;
+        time = 30f;
         firstTime = 0f;
         isFirst = false;
+
+        StartCoroutine(Warning(20.0f));
+        timeTxt.rectTransform.anchoredPosition = new Vector3(0, 250 + 50 * level, 0);
     }
+
+    IEnumerator Warning(float time)
+    {
+        yield return new WaitForSeconds(time);
+        anim.SetBool("isWarn", true);
+    }
+
 
     // Update is called once per frame
     void Update()
     {
-        timeStack += Time.deltaTime;
-
-        timeTxt.text = timeStack.ToString("N2");
+        time -= Time.deltaTime;
+        score -= Time.deltaTime;
+        timeTxt.text = time.ToString("N2");
+        if(time <= 0.0f)
+        {
+            endGame(false);
+        }
 
         if (isFirst)
         {
@@ -101,29 +128,31 @@ public class GameManager : MonoBehaviour
 
     public void Matched()
     {
-        if (isFirst)
-            ResetFirst();
+        if (isFirst) ResetFirst();
 
+        matchTryCount++;
+        if(matchTryCount > 4 * level) score -= 1;
+        
         if (firstCard.idx == secondCard.idx)
         {
             audioSource.PlayOneShot(matchClip);
 
-            if (firstCard.idx == 0 || firstCard.idx == 1)
+            if (firstCard.idx == 0 || firstCard.idx == 1 || firstCard.idx == 2)
             {
                 FirstTxt.SetActive(true);
                 Invoke("HideName", 0.5f);
             }
-            if (firstCard.idx == 2 || firstCard.idx == 3)
+            if (firstCard.idx == 3 || firstCard.idx == 4 || firstCard.idx == 5)
             {
                 SecondTxt.SetActive(true);
                 Invoke("HideName", 0.5f);
             }
-            if (firstCard.idx == 4 || firstCard.idx == 5)
+            if (firstCard.idx == 6 || firstCard.idx == 7 || firstCard.idx == 8)
             {
                 ThirdTxt.SetActive(true);
                 Invoke("HideName", 0.5f);
             }
-            if (firstCard.idx == 6 || firstCard.idx == 7)
+            if (firstCard.idx == 9 || firstCard.idx == 10 || firstCard.idx == 11)
             {
                 FourthTxt.SetActive(true);
                 Invoke("HideName", 0.5f);
@@ -140,8 +169,10 @@ public class GameManager : MonoBehaviour
 
                 audioSource.PlayOneShot(finishClip);
 
-                endTxt.SetActive(true);
+                clearEndTxt.SetActive(true);
                 Time.timeScale = 0.0f;
+                
+                endGame(true);
             }
         }
         else
@@ -162,6 +193,26 @@ public class GameManager : MonoBehaviour
         secondCard = null;
 
         ++clickCount;
+    }
+
+    void endGame(bool isClear)
+    {
+        if(isClear) 
+        {
+            clearEndTxt.SetActive(true);
+            resultTxt.text = "ÏÑ±Í≥µ";
+            resultTxt.gameObject.SetActive(true);
+            matchTryTxt.text = "Îß§Ïπ≠ ÏãúÎèÑ: " + matchTryCount.ToString();
+            matchTryTxt.gameObject.SetActive(true);
+            scoreTxt.text = "Ï†êÏàò: " + score.ToString("N2");
+            scoreTxt.gameObject.SetActive(true);
+        }
+        else
+        {
+            failEndTxt.SetActive(true);
+            resultTxt.gameObject.SetActive(true);
+        }
+        Time.timeScale = 0.0f;
     }
 
     private void HideName()

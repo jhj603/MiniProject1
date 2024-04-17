@@ -11,22 +11,31 @@ public class Board : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        int[] arr = { 0, 0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7 };
+        int level = GameManager.level;
+
+        int num = 4 * level;
+        int[] arr = new int[num];
+
+        for(int i = 0; i < num / 2; i++)
+        {   
+            arr[i * 2] = i;
+            arr[i * 2 + 1] = i;
+        }
 
         arr = arr.OrderBy(x => Random.Range(0f, 7f)).ToArray();
 
-        for (int i = 0; i < 16; ++i)
+        //위치조절은 레벨에 맞게 미리 설정
+        for(int i = 0; i < num; i++)
         {
-            GameObject Card = Instantiate(goCard, this.transform);
+            GameObject go = Instantiate(goCard, this.transform);
 
-            float x = ((i % 4) * 1.4f) - 2.1f;
-            float y = ((i / 4) * 1.4f) - 3.6f;
+            float x = (i % 4) * 1.4f - 2.1f;
+            float y = (i / 4) * 1.4f - 0.7f * level;
 
-            Card.transform.position = new Vector2(x, y);
-
-            Card.GetComponent<Card>().Setting(arr[i]); 
+            go.transform.position = new Vector2(x, y);
+            go.GetComponent<Card>().Setting(arr[i]);
         }
-
-        GameManager.Instance.cardCount = arr.Length; 
+ 
+        GameManager.Instance.cardCount = arr.Length;
     }
 }

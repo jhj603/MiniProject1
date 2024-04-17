@@ -58,7 +58,7 @@ public class Card : MonoBehaviour
     {
         idx = number;
 
-        frontImage.sprite = Resources.Load<Sprite>($"rtan{idx}");  
+        frontImage.sprite = Resources.Load<Sprite>($"img{idx}");  
     }
 
     public void OpenCard()  
@@ -81,9 +81,9 @@ public class Card : MonoBehaviour
         }
     }
 
-    public void DestroyCard()   //카드 삭제 함수
+    public void DestroyCard()
     {
-        Invoke("DestroyCardInvoke", 1f);
+        Invoke("DestroyCardInvoke", 0.5f);
     }
 
     void DestroyCardInvoke()
@@ -91,9 +91,9 @@ public class Card : MonoBehaviour
         Destroy(gameObject);
     }
 
-    public void CloseCard()     //카드 다시 뒤집는 함수
+    public void CloseCard()
     {
-        Invoke("CloseCardInvoke", 1f);
+        Invoke("CloseCardInvoke", 0.5f);
     }
 
     void CloseCardInvoke()

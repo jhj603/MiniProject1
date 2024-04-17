@@ -8,7 +8,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
 
-    int absdfae = 9;
+    float time = 1f;
 
     public Card firstCard;
     public Card secondCard;

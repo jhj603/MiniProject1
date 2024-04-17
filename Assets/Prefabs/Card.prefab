@@ -358,7 +358,7 @@ MonoBehaviour:
   goFront: {fileID: 5002314357325993680}
   goBack: {fileID: 5278534420674857401}
   anim: {fileID: 2545625686155232064}
-  clip: {fileID: 0}
+  clip: {fileID: 8300000, guid: f52d2d45ac1ff71439118f66a3798d54, type: 3}
 --- !u!82 &7039950105919155447
 AudioSource:
   m_ObjectHideFlags: 0

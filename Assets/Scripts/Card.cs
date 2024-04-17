@@ -16,6 +16,8 @@ public class Card : MonoBehaviour
     AudioSource audioSource;
     public AudioClip clip;
 
+    int matchedCount = -1;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -25,7 +27,31 @@ public class Card : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (0 <= matchedCount)
+        {
+            //프로퍼티 적용해야 함
+            switch (GameManager.Instance.clickCount - matchedCount)
+            {
+                case 1:
+                    goBack.GetComponent<SpriteRenderer>().color = new Color(82f / 255f, 82f / 255f, 82f / 255f, 255f / 255f);
+                    break;
+                case 2:
+                    goBack.GetComponent<SpriteRenderer>().color = new Color(107f / 255f, 107f / 255f, 107f / 255f, 255f / 255f);
+                    break;
+                case 3:
+                    goBack.GetComponent<SpriteRenderer>().color = new Color(157f / 255f, 157f / 255f, 157f / 255f, 255f / 255f);
+                    break;
+                case 4:
+                    goBack.GetComponent<SpriteRenderer>().color = new Color(206f / 255f, 206f / 255f, 206f / 255f, 255f / 255f);
+                    break;
+                case 5:
+                    goBack.GetComponent<SpriteRenderer>().color = new Color(224f / 255f, 224f / 255f, 224f / 255f, 255f / 255f);
+                    break;
+                default:
+                    goBack.GetComponent<SpriteRenderer>().color = Color.white;
+                    break;
+            }
+        }
     }
 
     public void Setting(int number)
@@ -37,14 +63,15 @@ public class Card : MonoBehaviour
 
     public void OpenCard()  
     {
-        anim.SetBool("IsOpen", true);    
+        audioSource.PlayOneShot(clip);
 
-        goFront.SetActive(true);     
-        goBack.SetActive(false);     
+        anim.SetBool("IsOpen", true);    
 
         if (null == GameManager.Instance.firstCard)
         {
             GameManager.Instance.firstCard = this;
+
+            GameManager.Instance.SetFirst();
         }
         else
         {
@@ -72,8 +99,11 @@ public class Card : MonoBehaviour
     void CloseCardInvoke()
     {
         anim.SetBool("IsOpen", false);
+    }
 
-        goFront.SetActive(false);
-        goBack.SetActive(true);
+    //count 프로퍼티 적용해야 함
+    public void SetCount(int _count)
+    {
+        matchedCount = _count;
     }
 }

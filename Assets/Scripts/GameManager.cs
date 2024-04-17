@@ -11,7 +11,13 @@ public class GameManager : MonoBehaviour
     public Card firstCard;
     public Card secondCard;
 
-    public Text timeTxt;    
+    public GameObject FirstTxt;
+    public GameObject SecondTxt;
+    public GameObject ThirdTxt;
+    public GameObject FourthTxt;
+    public GameObject NotMatchTxt;
+
+    public Text timeTxt;
     public GameObject endTxt;
 
     AudioSource audioSource;
@@ -43,23 +49,46 @@ public class GameManager : MonoBehaviour
         timeTxt.text = timeStack.ToString("N2");
     }
 
-    public void Matched()       
+    public void Matched()
     {
-        if (firstCard.idx == secondCard.idx) 
+        if (firstCard.idx == secondCard.idx)
         {
+            if (firstCard.idx == 0 || firstCard.idx == 1)
+            {
+                FirstTxt.SetActive(true);
+                Invoke("HideName", 0.5f);
+            }
+            if (firstCard.idx == 2 || firstCard.idx == 3)
+            {
+                SecondTxt.SetActive(true);
+                Invoke("HideName", 0.5f);
+            }
+            if (firstCard.idx == 4 || firstCard.idx == 5)
+            {
+                ThirdTxt.SetActive(true);
+                Invoke("HideName", 0.5f);
+            }
+            if (firstCard.idx == 6 || firstCard.idx == 7)
+            {
+                FourthTxt.SetActive(true);
+                Invoke("HideName", 0.5f);
+            }
+
             firstCard.DestroyCard();
             secondCard.DestroyCard();
 
-            cardCount -= 2;     
-
-            if (0 == cardCount)
+            cardCount -= 2;
+            if (cardCount == 0)
             {
-                Time.timeScale = 0f;
                 endTxt.SetActive(true);
+                Time.timeScale = 0.0f;
             }
         }
-        else    
+        else
         {
+            NotMatchTxt.SetActive(true);
+            Invoke("HideName", 0.5f);
+
             firstCard.CloseCard();
             secondCard.CloseCard();
         }
@@ -67,4 +96,13 @@ public class GameManager : MonoBehaviour
         firstCard = null;
         secondCard = null;
     }
+
+        private void HideName()
+        {
+            FirstTxt.SetActive(false);
+            SecondTxt.SetActive(false);
+            ThirdTxt.SetActive(false);
+            FourthTxt.SetActive(false);
+            NotMatchTxt.SetActive(false);
+        }
 }

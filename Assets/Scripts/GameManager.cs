@@ -187,6 +187,12 @@ public class GameManager : MonoBehaviour
 
             firstCard.CloseCard();
             secondCard.CloseCard();
+
+            time -= 1.0f;
+            if (time <= 0.0f)
+            {
+                time = 0.0f;
+            }
         }
 
         firstCard = null;

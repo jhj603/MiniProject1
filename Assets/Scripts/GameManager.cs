@@ -19,6 +19,8 @@ public class GameManager : MonoBehaviour
     public int cardCount = 0;
     float timeStack = 0f;
 
+    public int clickCount = 0;
+
     private void Awake()
     {
         if (null == Instance)

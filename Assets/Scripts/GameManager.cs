@@ -97,12 +97,12 @@ public class GameManager : MonoBehaviour
         secondCard = null;
     }
 
-        private void HideName()
-        {
-            FirstTxt.SetActive(false);
-            SecondTxt.SetActive(false);
-            ThirdTxt.SetActive(false);
-            FourthTxt.SetActive(false);
-            NotMatchTxt.SetActive(false);
-        }
+    private void HideName()
+    {
+        FirstTxt.SetActive(false);
+        SecondTxt.SetActive(false);
+        ThirdTxt.SetActive(false);
+        FourthTxt.SetActive(false);
+        NotMatchTxt.SetActive(false);
+    }
 }

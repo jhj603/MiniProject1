@@ -24,7 +24,7 @@ public class HardBtn : MonoBehaviour
 
     private void Update()
     {
-        if (!isUnlock && (needLevel <= GameManager.Level))
+        if (!isUnlock && (needLevel <= GameManager.HighLevel))
         {
             goLock.SetActive(false);
             goUnlock.SetActive(true);
@@ -36,6 +36,10 @@ public class HardBtn : MonoBehaviour
     public void HardChoose()
     {
         SceneManager.LoadScene("MainScene");
-        GameManager.Level = 5;
+
+        if (needLevel > GameManager.HighLevel)
+            GameManager.HighLevel = needLevel;
+
+        GameManager.Level = needLevel;
     }
 }

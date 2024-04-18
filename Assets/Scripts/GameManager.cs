@@ -17,8 +17,8 @@ public class GameManager : MonoBehaviour
     public GameObject FourthTxt;
     public GameObject NotMatchTxt;
 
-    public GameObject WarningTxt;
-    public GameObject WarningTimeTxt;
+    public Text WarningTxt;
+    public Text WarningTimeTxt;
 
     public Text timeTxt;
 
@@ -60,19 +60,27 @@ public class GameManager : MonoBehaviour
         set { level = value; }
     }
 
+    static int highLevel = level;
+
+    public static int HighLevel
+    {
+        get { return highLevel; }
+        set { highLevel = value; }
+    }
+
     string key = "";
 
     public void SetFirst()
     { 
         isFirst = true; 
-        WarningTxt.SetActive(true); 
-        WarningTimeTxt.SetActive(true);
+        WarningTxt.gameObject.SetActive(true); 
+        WarningTimeTxt.gameObject.SetActive(true);
     }
 
     void ResetFirst()
     {
-        WarningTxt.SetActive(false);
-        WarningTimeTxt.SetActive(false);
+        WarningTxt.gameObject.SetActive(false);
+        WarningTimeTxt.gameObject.SetActive(false);
 
         firstTime = 0f;
         isFirst = false;
@@ -142,6 +150,7 @@ public class GameManager : MonoBehaviour
 
         if (time <= 0.0f)
         {
+            time = 0.0f;
             EndGame(false);
         }
 
@@ -225,7 +234,12 @@ public class GameManager : MonoBehaviour
                 
                 EndGame(true);
 
-                ++level;
+                if (highLevel == level)
+                    ++highLevel;
+            }
+            if (level == 3 || level == 4)
+            {
+                time += 3.0f;
             }
         }
         else

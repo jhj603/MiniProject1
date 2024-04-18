@@ -22,6 +22,10 @@ public class GameManager : MonoBehaviour
 
     public Text timeTxt;
 
+    public Text curScoreTxt;
+    public Text curBestScoreTxt;
+    public bool hasBest = true;
+
     public GameObject endPanel;
     public Text resultTxt;
     public Text matchTryTxt;
@@ -56,6 +60,8 @@ public class GameManager : MonoBehaviour
         set { level = value; }
     }
 
+    string key = "";
+
     public void SetFirst()
     { 
         isFirst = true; 
@@ -84,11 +90,25 @@ public class GameManager : MonoBehaviour
         {
             case 3:
                 time = 60f;
+                key = "easyBest";
                 break;
             case 4:
+                time = 30f;
+                key = "normalBest";
+                break;
             case 5:
                 time = 30f;
+                key = "hardBest";
                 break;
+        }
+
+        if(PlayerPrefs.HasKey(key))
+        {
+            curBestScoreTxt.text = PlayerPrefs.GetFloat(key).ToString("N2");
+        }
+        else 
+        {
+            hasBest = false;
         }
 
         Time.timeScale = 1.0f;
@@ -114,8 +134,12 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         time -= Time.deltaTime;
-        score -= Time.deltaTime;
         timeTxt.text = time.ToString("N2");
+
+        score -= Time.deltaTime;
+        curScoreTxt.text = score.ToString("N2");
+        if(!hasBest) curBestScoreTxt.text = score.ToString("N2");
+
         if (time <= 0.0f)
         {
             EndGame(false);
@@ -232,6 +256,9 @@ public class GameManager : MonoBehaviour
 
     void EndGame(bool isClear)
     {
+        curScoreTxt.gameObject.SetActive(false);
+        curBestScoreTxt.gameObject.SetActive(false);
+
         if(isClear) 
         {
             SaveScore();
@@ -252,7 +279,6 @@ public class GameManager : MonoBehaviour
 
     void SaveScore()
     {
-        string key = "bestScore";
         if(PlayerPrefs.HasKey(key))
         {
             float bestScore = PlayerPrefs.GetFloat(key);

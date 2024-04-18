@@ -7,6 +7,6 @@ public class BackBtn : MonoBehaviour
 {
     public void BackLogo()
     {
-        SceneManager.LoadScene("StartScene");
+        SceneManager.LoadScene("MainScene");
     }
 }

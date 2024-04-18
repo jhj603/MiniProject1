@@ -199,10 +199,7 @@ public class GameManager : MonoBehaviour
 
                 Time.timeScale = 0.0f;
                 
-
                 EndGame(true);
-
-                ++level;
             }
         }
         else
@@ -249,7 +246,6 @@ public class GameManager : MonoBehaviour
 
         endPanel.SetActive(true);
         Time.timeScale = 0.0f;
-
     }
 
     void SaveScore()

@@ -11,7 +11,7 @@ public class Board : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        int level = GameManager.level;
+        int level = GameManager.Level;
 
         int num = 4 * level;
         int[] arr = new int[num];

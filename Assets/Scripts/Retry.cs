@@ -8,6 +8,10 @@ public class Retry : MonoBehaviour
     public void Restart()
     {
         SceneManager.LoadScene("MainScene");
+    }
+
+    public void StartStage()
+    {
         SceneManager.LoadScene("StageScene");
     }
 }

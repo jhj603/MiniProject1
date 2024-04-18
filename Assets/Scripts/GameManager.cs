@@ -199,6 +199,8 @@ public class GameManager : MonoBehaviour
                 Time.timeScale = 0.0f;
                 
                 endGame(true);
+
+                ++level;
             }
         }
         else
@@ -247,7 +249,6 @@ public class GameManager : MonoBehaviour
             failEndTxt.SetActive(true);
             resultTxt.gameObject.SetActive(true);
         }
-        Time.timeScale = 0.0f;
     }
 
     private void HideName()

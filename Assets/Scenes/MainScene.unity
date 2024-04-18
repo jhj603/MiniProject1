@@ -171,6 +171,7 @@ MonoBehaviour:
   matchClip: {fileID: 8300000, guid: 1a95edeedbb736e4eab765769c09b2bb, type: 3}
   failClip: {fileID: 8300000, guid: d22bceb788c9f1549a617d1f93468019, type: 3}
   finishClip: {fileID: 8300000, guid: 41e9ae0112f519949a114d7cd3c01c89, type: 3}
+  changeBgmClip: {fileID: 8300000, guid: 5b63a4d72d6f1e14b94bf156d785aa4a, type: 3}
   cardCount: 0
   clickCount: 0
   anim: {fileID: 1291871075}

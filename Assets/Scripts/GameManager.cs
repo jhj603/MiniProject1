@@ -35,6 +35,7 @@ public class GameManager : MonoBehaviour
     public AudioClip matchClip;
     public AudioClip failClip;
     public AudioClip finishClip;
+    public AudioClip changeBgmClip;
 
     public int cardCount = 0;
 
@@ -48,6 +49,7 @@ public class GameManager : MonoBehaviour
 
     float firstTime = 0f;
     bool isFirst = false;
+    bool isChangeBGM = false;
 
     public void SetFirst()
     { 
@@ -84,16 +86,8 @@ public class GameManager : MonoBehaviour
         firstTime = 0f;
         isFirst = false;
 
-        StartCoroutine(Warning(20.0f));
         timeTxt.rectTransform.anchoredPosition = new Vector3(0, 250 + 50 * level, 0);
     }
-
-    IEnumerator Warning(float time)
-    {
-        yield return new WaitForSeconds(time);
-        anim.SetBool("isWarn", true);
-    }
-
 
     // Update is called once per frame
     void Update()
@@ -101,9 +95,17 @@ public class GameManager : MonoBehaviour
         time -= Time.deltaTime;
         score -= Time.deltaTime;
         timeTxt.text = time.ToString("N2");
-        if(time <= 0.0f)
+        if (time <= 0.0f)
         {
             endGame(false);
+        }
+
+        if (!isChangeBGM && (10f >= time))
+        {
+            anim.SetBool("isWarn", true);
+
+            AudioManager.Instance.PlayBGM(changeBgmClip);
+            isChangeBGM = true;
         }
 
         if (isFirst)
@@ -128,10 +130,13 @@ public class GameManager : MonoBehaviour
 
     public void Matched()
     {
-        if (isFirst) ResetFirst();
+        if (isFirst)
+            ResetFirst();
 
         matchTryCount++;
-        if(matchTryCount > 4 * level) score -= 1;
+
+        if(matchTryCount > 4 * level) 
+            score -= 1;
         
         if (firstCard.idx == secondCard.idx)
         {

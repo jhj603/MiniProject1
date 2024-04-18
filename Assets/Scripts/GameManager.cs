@@ -22,11 +22,11 @@ public class GameManager : MonoBehaviour
 
     public Text timeTxt;
 
-    public GameObject failEndTxt;
-    public GameObject clearEndTxt;
+    public GameObject endPanel;
     public Text resultTxt;
     public Text matchTryTxt;
     public Text scoreTxt;
+    public Text bestScoreTxt;
 
     AudioSource audioSource;
 
@@ -118,7 +118,7 @@ public class GameManager : MonoBehaviour
         timeTxt.text = time.ToString("N2");
         if (time <= 0.0f)
         {
-            endGame(false);
+            EndGame(false);
         }
 
         if (!isChangeBGM && (10f >= time))
@@ -195,10 +195,10 @@ public class GameManager : MonoBehaviour
 
                 audioSource.PlayOneShot(finishClip);
 
-                clearEndTxt.SetActive(true);
                 Time.timeScale = 0.0f;
                 
-                endGame(true);
+
+                EndGame(true);
 
                 ++level;
             }
@@ -229,25 +229,47 @@ public class GameManager : MonoBehaviour
         ++clickCount;
     }
 
-    void endGame(bool isClear)
+    void EndGame(bool isClear)
     {
         if(isClear) 
         {
-            clearEndTxt.SetActive(true);
+            SaveScore();
             resultTxt.text = "성공";
-
-            resultTxt.gameObject.SetActive(true);
-            matchTryTxt.text = "매칭 시도: " + matchTryCount.ToString();
-
-            matchTryTxt.gameObject.SetActive(true);
-            scoreTxt.text = "점수: " + score.ToString("N2");
-
-            scoreTxt.gameObject.SetActive(true);
+            matchTryTxt.text = matchTryCount.ToString();
+            scoreTxt.text = score.ToString("N2");
         }
         else
         {
-            failEndTxt.SetActive(true);
+            matchTryTxt.text = matchTryCount.ToString();
+            scoreTxt.text = "X";
             resultTxt.gameObject.SetActive(true);
+        }
+
+        endPanel.SetActive(true);
+        Time.timeScale = 0.0f;
+
+    }
+
+    void SaveScore()
+    {
+        string key = "bestScore";
+        if(PlayerPrefs.HasKey(key))
+        {
+            float bestScore = PlayerPrefs.GetFloat(key);
+            if(bestScore < score)
+            {
+                PlayerPrefs.SetFloat(key, score);
+                bestScoreTxt.text = score.ToString("N2");
+            }
+            else
+            {
+                bestScoreTxt.text = bestScore.ToString("N2");
+            }
+        }
+        else
+        {
+            PlayerPrefs.SetFloat(key, score);
+            bestScoreTxt.text = score.ToString("N2");
         }
     }
 

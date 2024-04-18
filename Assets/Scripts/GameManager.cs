@@ -8,8 +8,6 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
 
-    public static int level = 3;
-
     public Card firstCard;
     public Card secondCard;
 
@@ -51,6 +49,13 @@ public class GameManager : MonoBehaviour
     bool isFirst = false;
     bool isChangeBGM = false;
 
+    static int level = 3;
+    public static int Level
+    { 
+        get { return level; }
+        set { level = value; }
+    }
+
     public void SetFirst()
     { 
         isFirst = true; 
@@ -73,18 +78,36 @@ public class GameManager : MonoBehaviour
             Instance = this;
     }
 
-    // Start is called before the first frame update
-    void Start()
+    void ResetGame()
     {
+        switch (level)
+        {
+            case 3:
+                time = 60f;
+                break;
+            case 4:
+            case 5:
+                time = 30f;
+                break;
+        }
+
         Time.timeScale = 1.0f;
         audioSource = GetComponent<AudioSource>();
 
         clickCount = 0;
-        time = 2000f;
+        
         firstTime = 0f;
         isFirst = false;
 
         timeTxt.rectTransform.anchoredPosition = new Vector3(0, 250 + 50 * level, 0);
+
+        AudioManager.Instance.PlayOriginal();
+    }
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        ResetGame();
     }
 
     // Update is called once per frame
@@ -176,6 +199,8 @@ public class GameManager : MonoBehaviour
                 Time.timeScale = 0.0f;
                 
                 endGame(true);
+
+                ++level;
             }
         }
         else
@@ -210,10 +235,13 @@ public class GameManager : MonoBehaviour
         {
             clearEndTxt.SetActive(true);
             resultTxt.text = "성공";
+
             resultTxt.gameObject.SetActive(true);
             matchTryTxt.text = "매칭 시도: " + matchTryCount.ToString();
+
             matchTryTxt.gameObject.SetActive(true);
             scoreTxt.text = "점수: " + score.ToString("N2");
+
             scoreTxt.gameObject.SetActive(true);
         }
         else
@@ -221,7 +249,6 @@ public class GameManager : MonoBehaviour
             failEndTxt.SetActive(true);
             resultTxt.gameObject.SetActive(true);
         }
-        Time.timeScale = 0.0f;
     }
 
     private void HideName()

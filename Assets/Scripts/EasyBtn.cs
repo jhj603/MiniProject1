@@ -3,15 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class Retry : MonoBehaviour
+public class EasyBtn : MonoBehaviour
 {
-    public void Restart()
+    public void EasyChoose()
     {
         SceneManager.LoadScene("MainScene");
-    }
-
-    public void StartStage()
-    {
-        SceneManager.LoadScene("StageScene");
+        GameManager.Level = 3;
     }
 }

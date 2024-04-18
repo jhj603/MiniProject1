@@ -273,15 +273,20 @@ public class GameManager : MonoBehaviour
         curScoreTxt.gameObject.SetActive(false);
         curBestScoreTxt.gameObject.SetActive(false);
 
+        SaveScore();
+
         if(isClear) 
         {
-            SaveScore();
             resultTxt.text = "성공";
             matchTryTxt.text = matchTryCount.ToString();
             scoreTxt.text = score.ToString("N2");
         }
         else
         {
+            if(PlayerPrefs.HasKey(key))
+            {
+                curBestScoreTxt.text = PlayerPrefs.GetFloat(key).ToString("N2");
+            }   
             matchTryTxt.text = matchTryCount.ToString();
             scoreTxt.text = "X";
             resultTxt.gameObject.SetActive(true);

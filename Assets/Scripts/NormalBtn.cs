@@ -37,5 +37,6 @@ public class NormalBtn : MonoBehaviour
         SceneManager.LoadScene("MainScene");
 
         GameManager.HighLevel = needLevel;
+        GameManager.Level = needLevel;
     }
 }

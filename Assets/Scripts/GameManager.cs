@@ -82,7 +82,7 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1f;
 
         clickCount = 0;
-        time = 30f;
+        time = 2000f;
         firstTime = 0f;
         isFirst = false;
 

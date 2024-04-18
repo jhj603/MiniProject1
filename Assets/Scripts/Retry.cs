@@ -15,4 +15,9 @@ public class Retry : MonoBehaviour
         GameManager.level++;
         SceneManager.LoadScene("MainScene");
     }
+
+    public void goStage()
+    {
+        SceneManager.LoadScene("StageScene");
+    }
 }

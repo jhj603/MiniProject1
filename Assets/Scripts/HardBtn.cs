@@ -9,7 +9,7 @@ public class HardBtn : MonoBehaviour
     public GameObject goLock;
     public GameObject goUnlock;
 
-    int needLevel = 5;
+    int needLevel = 3;
 
     // Start is called before the first frame update
     void Start()

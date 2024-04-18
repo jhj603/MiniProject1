@@ -9,7 +9,7 @@ public class NormalBtn : MonoBehaviour
     public GameObject goLock;
     public GameObject goUnlock;
 
-    int needLevel = 4;
+    int needLevel = 3;
 
     // Start is called before the first frame update
     void Start()

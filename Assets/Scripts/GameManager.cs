@@ -131,13 +131,11 @@ public class GameManager : MonoBehaviour
 
         if (isFirst)
         {
-            firstTime += Time.deltaTime;
-
-            WarningTimeTxt.GetComponent<Text>().text = firstTime.ToString("N2");
-
-            if (4f < firstTime)
+            if (5f <= firstTime)
             {
-                Invoke("ResetFirst", 1f);
+                firstTime = 5f;
+
+                Invoke("ResetFirst", 0.5f);
 
                 if (null != firstCard)
                 {
@@ -146,6 +144,10 @@ public class GameManager : MonoBehaviour
                     firstCard = null;
                 }
             }
+            else
+                firstTime += Time.deltaTime;
+
+            WarningTimeTxt.GetComponent<Text>().text = firstTime.ToString("N2");
         }
     }
 

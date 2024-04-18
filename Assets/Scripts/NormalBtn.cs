@@ -9,24 +9,29 @@ public class NormalBtn : MonoBehaviour
     public GameObject goLock;
     public GameObject goUnlock;
 
-    int needLevel = 3;
+    int needLevel = 4;
+    bool isUnlock = false;
 
     // Start is called before the first frame update
     void Start()
     {
-        if (needLevel > GameManager.Level)
-        {
-            goLock.SetActive(true);
-            goUnlock.SetActive(false);
-        }
-        else
+        goLock.SetActive(true);
+        goUnlock.SetActive(false);
+
+        goUnlock.GetComponent<Button>().onClick.AddListener(() => NormalChoose());
+    }
+
+    private void Update()
+    {
+        if (!isUnlock && (needLevel <= GameManager.Level))
         {
             goLock.SetActive(false);
             goUnlock.SetActive(true);
 
-            goUnlock.GetComponent<Button>().onClick.AddListener(() => NormalChoose());
+            isUnlock = true;
         }
     }
+
     public void NormalChoose()
     {
         SceneManager.LoadScene("MainScene");

@@ -3,28 +3,33 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using static Unity.Collections.AllocatorManager;
 
 public class HardBtn : MonoBehaviour
 {
     public GameObject goLock;
     public GameObject goUnlock;
 
-    int needLevel = 3;
+    int needLevel = 5;
+    bool isUnlock = false;
 
     // Start is called before the first frame update
     void Start()
     {
-        if (needLevel > GameManager.Level)
-        {
-            goLock.SetActive(true);
-            goUnlock.SetActive(false);
-        }
-        else
+        goLock.SetActive(true);
+        goUnlock.SetActive(false);
+
+        goUnlock.GetComponent<Button>().onClick.AddListener(() => HardChoose());
+    }
+
+    private void Update()
+    {
+        if (!isUnlock && (needLevel <= GameManager.Level))
         {
             goLock.SetActive(false);
             goUnlock.SetActive(true);
 
-            goUnlock.GetComponent<Button>().onClick.AddListener(() => HardChoose());
+            isUnlock = true;
         }
     }
 

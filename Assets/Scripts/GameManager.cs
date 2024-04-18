@@ -200,6 +200,8 @@ public class GameManager : MonoBehaviour
                 Time.timeScale = 0.0f;
                 
                 EndGame(true);
+
+                ++level;
             }
         }
         else

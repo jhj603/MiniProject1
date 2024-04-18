@@ -45,7 +45,7 @@ public class AudioManager : MonoBehaviour
 
     public void PlayOriginal()
     {
-        if ((null != audioSource) && (originalBGMClip != audioSource.clip))
+        if ((null != audioSource) && ((originalBGMClip != audioSource.clip) || !audioSource.isPlaying))
         {
             audioSource.Stop();
 

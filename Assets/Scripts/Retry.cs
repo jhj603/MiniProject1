@@ -13,5 +13,7 @@ public class Retry : MonoBehaviour
     public void StageStart()
     {
         SceneManager.LoadScene("StageScene");
+
+        AudioManager.Instance.PlayOriginal();
     }
 }

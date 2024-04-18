@@ -1731,7 +1731,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1063375065}
         m_TargetAssemblyTypeName: Retry, Assembly-CSharp
-        m_MethodName: GoHome
+        m_MethodName: StageStart
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

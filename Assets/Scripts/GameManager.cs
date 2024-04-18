@@ -128,8 +128,6 @@ public class GameManager : MonoBehaviour
         isFirst = false;
 
         timeTxt.rectTransform.anchoredPosition = new Vector3(0, 250 + 50 * level, 0);
-        WarningTxt.rectTransform.anchoredPosition = new Vector3(-41.6f, 175 + 50 * level, 0);
-        WarningTimeTxt.rectTransform.anchoredPosition = new Vector3(97, 175 + 50 * level, 0);
 
         AudioManager.Instance.PlayOriginal();
     }
@@ -238,6 +236,10 @@ public class GameManager : MonoBehaviour
 
                 if (highLevel == level)
                     ++highLevel;
+            }
+            if (level == 3 || level == 4)
+            {
+                time += 3.0f;
             }
         }
         else

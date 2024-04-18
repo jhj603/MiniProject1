@@ -10,7 +10,7 @@ public class Retry : MonoBehaviour
         SceneManager.LoadScene("MainScene");
     }
 
-    public void StartStage()
+    public void StageStart()
     {
         SceneManager.LoadScene("StageScene");
     }

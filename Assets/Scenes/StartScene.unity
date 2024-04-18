@@ -209,7 +209,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 603644015}
         m_TargetAssemblyTypeName: Retry, Assembly-CSharp
-        m_MethodName: StartStage
+        m_MethodName: StageStart
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -634,8 +634,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1464690989}
-  - component: {fileID: 1464690990}
   - component: {fileID: 1464690991}
+  - component: {fileID: 1464690990}
   m_Layer: 0
   m_Name: AudioManager
   m_TagString: Untagged

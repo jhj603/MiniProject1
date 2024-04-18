@@ -79,8 +79,6 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1.0f;
         audioSource = GetComponent<AudioSource>();
 
-        Time.timeScale = 1f;
-
         clickCount = 0;
         time = 2000f;
         firstTime = 0f;

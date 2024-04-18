@@ -18,6 +18,13 @@ public class Card : MonoBehaviour
 
     int matchedCount = -1;
 
+    int arrayIdx = 0;
+
+    public int ArrayIdx
+    {
+        get { return arrayIdx; }
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -54,19 +61,17 @@ public class Card : MonoBehaviour
         }
     }
 
-    public void Setting(int number)
+    public void Setting(int number, int index)
     {
         idx = number;
 
-        frontImage.sprite = Resources.Load<Sprite>($"img{idx}");  
+        frontImage.sprite = Resources.Load<Sprite>($"img{idx}");
+
+        arrayIdx = index;
     }
 
     public void OpenCard()  
-    {
-        audioSource.PlayOneShot(clip);
-
-        anim.SetBool("IsOpen", true);    
-
+    { 
         if (null == GameManager.Instance.firstCard)
         {
             GameManager.Instance.firstCard = this;
@@ -75,15 +80,22 @@ public class Card : MonoBehaviour
         }
         else
         {
+            if (GameManager.Instance.firstCard.ArrayIdx == arrayIdx)
+                return;
+
             GameManager.Instance.secondCard = this;
 
             GameManager.Instance.Matched();
         }
+
+        audioSource.PlayOneShot(clip);
+
+        anim.SetBool("IsOpen", true);
     }
 
     public void DestroyCard()
     {
-        Invoke("DestroyCardInvoke", 0.5f);
+        Invoke("DestroyCardInvoke", 1f);
     }
 
     void DestroyCardInvoke()

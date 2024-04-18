@@ -17,8 +17,8 @@ public class GameManager : MonoBehaviour
     public GameObject FourthTxt;
     public GameObject NotMatchTxt;
 
-    public GameObject WarningTxt;
-    public GameObject WarningTimeTxt;
+    public Text WarningTxt;
+    public Text WarningTimeTxt;
 
     public Text timeTxt;
 
@@ -73,14 +73,14 @@ public class GameManager : MonoBehaviour
     public void SetFirst()
     { 
         isFirst = true; 
-        WarningTxt.SetActive(true); 
-        WarningTimeTxt.SetActive(true);
+        WarningTxt.gameObject.SetActive(true); 
+        WarningTimeTxt.gameObject.SetActive(true);
     }
 
     void ResetFirst()
     {
-        WarningTxt.SetActive(false);
-        WarningTimeTxt.SetActive(false);
+        WarningTxt.gameObject.SetActive(false);
+        WarningTimeTxt.gameObject.SetActive(false);
 
         firstTime = 0f;
         isFirst = false;
@@ -128,6 +128,8 @@ public class GameManager : MonoBehaviour
         isFirst = false;
 
         timeTxt.rectTransform.anchoredPosition = new Vector3(0, 250 + 50 * level, 0);
+        WarningTxt.rectTransform.anchoredPosition = new Vector3(-41.6f, 175 + 50 * level, 0);
+        WarningTimeTxt.rectTransform.anchoredPosition = new Vector3(97, 175 + 50 * level, 0);
 
         AudioManager.Instance.PlayOriginal();
     }
@@ -150,6 +152,7 @@ public class GameManager : MonoBehaviour
 
         if (time <= 0.0f)
         {
+            time = 0.0f;
             EndGame(false);
         }
 

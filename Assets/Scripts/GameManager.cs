@@ -60,6 +60,14 @@ public class GameManager : MonoBehaviour
         set { level = value; }
     }
 
+    static int highLevel = level;
+
+    public static int HighLevel
+    {
+        get { return highLevel; }
+        set { highLevel = value; }
+    }
+
     string key = "";
 
     public void SetFirst()
@@ -225,7 +233,8 @@ public class GameManager : MonoBehaviour
                 
                 EndGame(true);
 
-                ++level;
+                if (highLevel == level)
+                    ++highLevel;
             }
         }
         else

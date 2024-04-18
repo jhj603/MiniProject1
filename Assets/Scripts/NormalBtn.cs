@@ -23,7 +23,7 @@ public class NormalBtn : MonoBehaviour
 
     private void Update()
     {
-        if (!isUnlock && (needLevel <= GameManager.Level))
+        if (!isUnlock && (needLevel <= GameManager.HighLevel))
         {
             goLock.SetActive(false);
             goUnlock.SetActive(true);
@@ -35,6 +35,7 @@ public class NormalBtn : MonoBehaviour
     public void NormalChoose()
     {
         SceneManager.LoadScene("MainScene");
-        GameManager.Level = 4;
+
+        GameManager.HighLevel = needLevel;
     }
 }

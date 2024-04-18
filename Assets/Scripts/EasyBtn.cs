@@ -8,6 +8,7 @@ public class EasyBtn : MonoBehaviour
     public void EasyChoose()
     {
         SceneManager.LoadScene("MainScene");
+
         GameManager.Level = 3;
     }
 }
